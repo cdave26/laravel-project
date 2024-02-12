@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 class IdeaController extends Controller
 {
     public function store(){
+        request()->validate([
+            'content' => 'required|min:5|max:300'
+        ]);
+
         $ideaContent = request()->get('content','');
 
         $idea = new Idea([
