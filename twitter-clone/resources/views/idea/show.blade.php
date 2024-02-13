@@ -45,16 +45,9 @@
         </div>
         <div class="col-6">
             @include('shared.success-message')
-            @include('shared.submit-idea')
             <hr>
             <div class="mt-3">
-                @foreach ($ideas as $idea)
-                    @include('shared.idea-card')
-                @endforeach
-
-                <div>
-                    {{ $ideas->links() }}
-                </div>
+                @include('shared.idea-card')
             </div>
         </div>
         <div class="col-3">
