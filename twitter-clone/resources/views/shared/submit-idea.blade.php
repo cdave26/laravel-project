@@ -1,5 +1,5 @@
 <h4> Share yours ideas </h4>
-<form action="{{route('idea.create')}}" method="post">
+<form action="{{ route('idea.create') }}" method="post">
     @csrf
     <div class="row">
         <div class="mb-3">
