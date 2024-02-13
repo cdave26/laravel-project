@@ -20,7 +20,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 
 Route::post('/idea', [IdeaController::class, 'store'])->name('idea.create');
-
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
 
 Route::get('/profile', [ProfileController::class, 'profile']);
 Route::get('/terms', function(){
