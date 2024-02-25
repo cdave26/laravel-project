@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 class IdeaController extends Controller
 {
 
-    public function show(Idea $id){
-        return view('idea.show',[
-            'idea' => $id
-        ]);
+    public function show(Idea $idea){
+        return view('ideas.show',compact('idea'));
     }
 
     public function store(){
@@ -31,9 +29,36 @@ class IdeaController extends Controller
         
     }
 
-    public function destroy(Idea $id){
-       $id->delete();
+    public function destroy(Idea $idea){
+       $idea->delete();
 
        return redirect()->route('dashboard')->with('success','Idea deleted Successfully');  
     }
+
+    // public function destroy($id){
+    //     Idea::where('id',$id)->firstOrFail()->delete();
+    // //    $idea->delete();
+
+    //    return redirect()->route('dashboard')->with('success','Idea deleted Successfully');  
+    // }
+
+    
+
+    public function edit(Idea $idea){
+        $editing = true;
+        return view('ideas.show',compact('idea', 'editing'));
+    }
+
+     function update(Idea $idea){
+        request()->validate([
+            'content' => 'required|min:5|max:300'
+        ]);
+
+        $idea->content = request()->get('content','');
+
+        $idea->save();
+
+        return redirect()->route('ideas.show',$idea->id)->with('success','Idea Updated Successfully');  
+    }
+    
 }
