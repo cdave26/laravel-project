@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
@@ -26,11 +27,12 @@ Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show')
 
 Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
 
-
-
 Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.update');
 
 Route::get('/profile', [ProfileController::class, 'profile']);
+
+Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('ideas.comments.store');
+
 Route::get('/terms', function(){
     return view ('terms');
 });
