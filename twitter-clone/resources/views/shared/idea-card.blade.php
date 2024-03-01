@@ -11,15 +11,18 @@
                 </div>
             </div>
             <div>
-                @if (auth()->id() == $idea->user->id)
-                    <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
-                        @csrf
-                        @method('delete')
+                <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
+                    @csrf
+                    @method('delete')
+                    @if (auth()->id() == $idea->user->id)
                         <a href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
-                        <a href="{{ route('ideas.show', $idea->id) }}">view</a>
+                    @endif
+                    <a href="{{ route('ideas.show', $idea->id) }}">view</a>
+                    @if (auth()->id() == $idea->user->id)
                         <button class="btn btn-danger btn-sml">x</button>
-                    </form>
-                @endif
+                    @endif
+                </form>
+
             </div>
         </div>
     </div>
