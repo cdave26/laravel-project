@@ -27,7 +27,7 @@
                     <input type="submit" name="submit" class="btn btn-dark btn-md" value="submit">
                 </div>
                 <div class="text-right mt-2">
-                    <a href="/Register" class="text-dark">Register here</a>
+                    <a href="/register" class="text-dark">Register here</a>
                 </div>
             </form>
         </div>
