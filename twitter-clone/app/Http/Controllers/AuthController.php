@@ -30,7 +30,7 @@ class AuthController extends Controller
             ]
          );
 
-         return redirect()->route('dashboard')->with('success', 'account created successfully');
+         return redirect()->route('register')->with('success', 'account created successfully');
     }
 
     public function login(){
