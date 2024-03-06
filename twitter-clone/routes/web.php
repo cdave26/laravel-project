@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix'=>'ideas/', 'as'=>'ideas.', 'middleware' => ['auth']],function(){
 
-    Route::post('', [IdeaController::class, 'store'])->name('store');
+  
 
     Route::get('/{idea}', [IdeaController::class, 'show'])->name('show');
 
     Route::group(['middleware' => ['auth']], function(){
+        Route::post('', [IdeaController::class, 'store'])->name('store');
 
         Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('destroy');
 
@@ -43,7 +44,7 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/profile', [ProfileController::class, 'profile']);
 
 
-
+// Route::resource('ideas', IdeaController::class);
 
 Route::get('/terms', function(){
     return view ('terms');
