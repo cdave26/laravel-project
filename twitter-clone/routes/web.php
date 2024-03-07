@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +44,9 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'profile']);
 
-
+Route::resource('user', UserController::class)->only('show','edit','update')->middleware('auth');
 // Route::resource('ideas', IdeaController::class);
+
 
 Route::get('/terms', function(){
     return view ('terms');
