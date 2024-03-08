@@ -42,7 +42,7 @@ Route::group(['prefix'=>'ideas/', 'as'=>'ideas.', 'middleware' => ['auth']],func
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/profile', [ProfileController::class, 'profile']);
+Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
 
 Route::resource('user', UserController::class)->only('show','edit','update')->middleware('auth');
 // Route::resource('ideas', IdeaController::class);
