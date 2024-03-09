@@ -40,6 +40,7 @@ Route::group(['prefix'=>'ideas/', 'as'=>'ideas.', 'middleware' => ['auth']],func
  
 
 });
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
