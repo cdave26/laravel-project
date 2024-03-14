@@ -6,11 +6,11 @@
         </div>
         <div class="col-6">
             @include('shared.success-message')
-            @include('shared.submit-idea')
+            @include('ideas.shared.submit-idea')
             <hr>
             <div class="mt-3">
                 @forelse ($ideas as $idea)
-                    @include('shared.idea-card')
+                    @include('ideas.shared.idea-card')
                 @empty
                     <p>No Results found!</p>
                 @endforelse

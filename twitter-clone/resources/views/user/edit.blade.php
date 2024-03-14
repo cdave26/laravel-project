@@ -15,11 +15,11 @@
             @include('shared.success-message')
             <hr>
             <div class="mt-3">
-                @include('shared.user-edit-card')
+                @include('user.shared.user-edit-card')
             </div>
             <hr>
             @forelse ($ideas as $idea)
-                @include('shared.idea-card')
+                @include('ideas.shared.idea-card')
             @empty
                 <p>No Results found!</p>
             @endforelse
