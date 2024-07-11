@@ -56,7 +56,7 @@ Route::post('users/{user}/follow', [FollowerController::class, 'follow'])->middl
 
 Route::post('users/{user}/unfollow', [FollowerController::class, 'unfollow'])->middleware('auth')->name('users.unfollow');
 
-Route::post('idea/{idea}/like', [IdeaLikeController::class, 'like'])->middleware('auth')->name('ideas.like');
+Route::post('idea/{idea}/like', [IdeaLikeController::class  , 'like'])->middleware('auth')->name('ideas.like');
 
 Route::post('idea/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middleware('auth')->name('ideas.unlike');
 

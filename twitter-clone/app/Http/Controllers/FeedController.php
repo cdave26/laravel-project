@@ -12,7 +12,15 @@ class FeedController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $ideas =  Idea::orderBy('created_at','DESC');
+
+        $user = auth()->User();
+
+        // pluck is a method to get specific column
+        $followingId = $user->followings()->pluck('user_id');
+
+        // dd($followingId);
+
+        $ideas =  Idea::whereIn('user_id', $followingId)->latest();
 
         if(request()->has('search')){
             $ideas = $ideas->where('content','like', '%' . request()->get('search','') . '%');
