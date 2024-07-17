@@ -14,9 +14,9 @@
                 <form method="POST" action="{{ route("ideas.destroy", $idea->id) }}">
                     @csrf
                     @method("delete")
-                    @if (auth()->id() == $idea->user->id)
+                    @can("idea.edit", $idea)
                         <a href="{{ route("ideas.edit", $idea->id) }}">Edit</a>
-                    @endif
+                    @endcan
                     <a href="{{ route("ideas.show", $idea->id) }}">view</a>
                     @if (auth()->id() == $idea->user->id)
                         <button class="btn btn-danger btn-sml">x</button>
