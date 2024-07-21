@@ -28,7 +28,7 @@ class IdeaController extends Controller
     //    if (auth()->id() !== $idea->user_id){
     //         abort(404);
     //    }  
-        $this->authorize('idea.delete', $idea);
+        $this->authorize('delete', $idea);
        $idea->delete();
 
        return redirect()->route('dashboard')->with('success','Idea deleted Successfully');  
@@ -42,7 +42,7 @@ class IdeaController extends Controller
         // if (auth()->id() !== $idea->user_id){
         //     abort(404);
         // } 
-          $this->authorize('idea.edit', $idea);
+          $this->authorize('update', $idea);
         $editing = true;
         return view('ideas.show',compact('idea', 'editing'));
     }
