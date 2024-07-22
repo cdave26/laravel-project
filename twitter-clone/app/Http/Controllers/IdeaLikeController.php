@@ -16,7 +16,7 @@ class IdeaLikeController extends Controller
        return redirect()->route('dashboard')->with('success', ' like successfully');
     }
 
-    public function unlike(){
+    public function unlike(Idea $idea){
         $liker = auth()->user();
 
         $liker->likes()->detach($idea);

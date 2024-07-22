@@ -5,22 +5,22 @@
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $idea->user->getImageURL() }}"
                     alt=" {{ $idea->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{ route('user.show', $idea->user->id) }}">
+                    <h5 class="card-title mb-0"><a href="{{ route("user.show", $idea->user->id) }}">
                             {{ $idea->user->name }}
                         </a></h5>
                 </div>
             </div>
             <div>
-                <form method="POST" action="{{ route('ideas.destroy', $idea->id) }}">
+                <form method="POST" action="{{ route("ideas.destroy", $idea->id) }}">
                     @csrf
-                    @method('delete')
-                    @if (auth()->id() == $idea->user->id)
-                        <a href="{{ route('ideas.edit', $idea->id) }}">Edit</a>
-                    @endif
-                    <a href="{{ route('ideas.show', $idea->id) }}">view</a>
-                    @if (auth()->id() == $idea->user->id)
+                    @method("delete")
+                    @can("update", $idea)
+                        <a href="{{ route("ideas.edit", $idea->id) }}">Edit</a>
+                    @endcan
+                    <a href="{{ route("ideas.show", $idea->id) }}">view</a>
+                    @can("delete", $idea)
                         <button class="btn btn-danger btn-sml">x</button>
-                    @endif
+                    @endcan
                 </form>
 
             </div>
@@ -29,15 +29,15 @@
 
     <div class="card-body">
         @if ($editing ?? false)
-            <form action="{{ route('ideas.update', $idea->id) }}" method="post">
+            <form action="{{ route("ideas.update", $idea->id) }}" method="post">
                 @csrf
 
-                @method('put')
+                @method("put")
 
                 <div class="row">
                     <div class="mb-3">
                         <textarea name="content" class="form-control" id="content" rows="3">{{ $idea->content }}</textarea>
-                        @error('content')
+                        @error("content")
                             <span class="fs-6 text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -53,12 +53,13 @@
         @endif
 
         <div class="d-flex justify-content-between">
-            @include('ideas.shared.like-button')
+            @include("ideas.shared.like-button")
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                    {{ $idea->created_at }} </span>
+                    {{-- another option method for date "toDateString()" --}}
+                    {{ $idea->created_at->diffForHumans() }} </span>
             </div>
         </div>
-        @include('shared.comments-box')
+        @include("shared.comments-box")
     </div>
 </div>

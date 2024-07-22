@@ -13,9 +13,9 @@
               </div>
               <div>
                   @auth
-                      @if (Auth::id() == $user->id)
-                          <a href="{{ route('user.edit', $user->id) }}">Edit</a>
-                      @endif
+                      @can("update", $user)
+                          <a href="{{ route("user.edit", $user->id) }}">Edit</a>
+                      @endcan
                   @endauth
 
               </div>
@@ -28,17 +28,17 @@
                   {{ $user->bio }}
               </p>
 
-              @include ('user.shared.user-stats')
+              @include ("user.shared.user-stats")
               @auth
-                  @if (Auth::id() !== $user->id)
+                  @if (Auth::user()->isNot($user))
                       <div class="mt-3">
                           @if (Auth::user()->follows($user))
-                              <form method="POST" action="{{ route('users.unfollow', $user->id) }}">
+                              <form method="POST" action="{{ route("users.unfollow", $user->id) }}">
                                   @csrf
                                   <button type="submit" class="btn btn-primary btn-sm">UnFollow </button>
                               </form>
                           @else
-                              <form method="POST" action="{{ route('users.follow', $user->id) }}">
+                              <form method="POST" action="{{ route("users.follow", $user->id) }}">
                                   @csrf
                                   <button type="submit" class="btn btn-primary btn-sm"> Follow </button>
                               </form>
