@@ -12,7 +12,12 @@ class Idea extends Model
         'user:id,name,image','comments.user:id,name,image'
     ];
 
-        protected $fillable = [
+    protected $withCounts = [
+        'likes'
+    ];
+
+
+    protected $fillable = [
         'user_id',
         'content',
     ];
