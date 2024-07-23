@@ -21,6 +21,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('lang/{lang}', function ($lang){
+    app()->setLocale($lang);
+    session()->put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
+
 Route::group(['prefix'=>'ideas/', 'as'=>'ideas.', 'middleware' => ['auth']],function(){
 
   
