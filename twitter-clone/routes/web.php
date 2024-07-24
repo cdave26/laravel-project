@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
@@ -69,10 +70,16 @@ Route::post('idea/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middle
 
 Route::get('feed', FeedController::class)->middleware('auth')->name('feed');
 
-Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'can:admin']);
+
 
 Route::get('/terms', function(){
     return view ('terms');
+});
+
+
+Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(function(){
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
 });
 // Route::get('/login', function () {
 //     return view('dashboard');
