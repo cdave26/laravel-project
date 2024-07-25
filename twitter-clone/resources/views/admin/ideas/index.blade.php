@@ -6,8 +6,8 @@
             @include("admin.shared.left-sidebar")
         </div>
         <div class="col-9">
-            <h1>Users </h1>
-
+            <h1>Ideas</h1>
+            @include("shared.success-message")
             <table class="table table-striped mt-3">
                 <thead class="table-dark">
                     <tr>
@@ -23,7 +23,11 @@
                     @foreach ($ideas as $idea)
                         <tr>
                             <td>{{ $idea->id }}</td>
-                            <td>{{ $idea->user->name }}</td>
+                            <td>
+                                <a href="{{ route("user.show", $idea->user) }}">
+                                    {{ $idea->user->name }}
+                                </a>
+                            </td>
                             <td>{{ $idea->content }}</td>
                             <td>{{ $idea->created_at->toDateString() }}</td>
                             <td>

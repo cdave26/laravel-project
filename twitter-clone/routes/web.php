@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\admin\IdeaController as AdminIdeaController;
 use App\Http\Controllers\admin\UserController as AdminUserController;
@@ -82,6 +83,7 @@ Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', AdminUserController::class)->only('index');
     Route::resource('ideas', AdminIdeaController::class)->only('index');
+    Route::resource('comments', AdminCommentController::class)->only('index', 'destroy');
 });
 // Route::get('/login', function () {
 //     return view('dashboard');
