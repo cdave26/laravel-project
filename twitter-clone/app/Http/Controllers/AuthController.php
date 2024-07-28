@@ -86,7 +86,7 @@ class AuthController extends Controller
         ]);
 
         $user = DB::table('users')->where('email', $validated['email'])->first();
-
+  
         if ($user) {
         DB::table('users')
                 ->where('email', $validated['email'])
@@ -94,7 +94,7 @@ class AuthController extends Controller
 
             return view('auth.login')->with('success', 'User Updated Successfully');
         } else {
-           return view('auth.login')->with('error', 'User Not Existing');
+            return view('auth.login')->with('error', 'User Not Existing');
         }
-  }
+   }
 }

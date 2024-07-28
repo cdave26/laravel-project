@@ -14,6 +14,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Permission</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
@@ -25,10 +26,23 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->is_admin }}</td>
                             <td>{{ $user->created_at->toDateString() }}</td>
                             <td>
                                 <a href="{{ route("user.show", $user) }}">View</a>
                                 <a href="{{ route("user.edit", $user) }}">Edit</a>
+                                <a href="{{ route("user.edit", $user) }}">Delete</a>
+                                @if ($user->is_admin)
+                                    <a href="{{ route("user.show", $user) }}">Make as Normal User</a>
+                                @else
+                                    <form action="{{ route("admin.makeAdmin", $user) }}" method="POST">
+                                        @csrf
+                                        @method("POST")
+                                        <a href="#"
+                                            onclick="event.preventDefault(); this.closest('form').submit();">Make as
+                                            admin</a>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

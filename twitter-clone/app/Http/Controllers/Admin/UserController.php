@@ -14,5 +14,12 @@ class UserController extends Controller
 
         return view('admin.users.index', compact('users'));
     }
+
+  public function makeAdminUser(User $user){
+      $user->update(['is_admin' => 1]);
+      return redirect()->route('admin.users.index'); // Use redirect instead of view
+  }
+
+
 }
 
