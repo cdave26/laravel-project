@@ -1,8 +1,9 @@
-@extends('layout.layout')
-@section('content-section')
+@extends("layout.layout")
+@section("title", "terms and condition")
+@section("content-section")
     <div class="row">
         <div class="col-3">
-            @include('shared.left-sidebar')
+            @include("shared.left-sidebar")
         </div>
         <div class="col-6">
             <h1>Terms</h1>
@@ -21,7 +22,7 @@
             </div>
         </div>
         <div class="col-3">
-            @include('shared.search-bar')
-            @include('shared.follow-box')
+            @include("shared.search-bar")
+            @include("shared.follow-box")
         </div>
     @endsection

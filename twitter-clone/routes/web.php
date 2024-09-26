@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\admin\IdeaController as AdminIdeaController;
+use App\Http\Controllers\admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
@@ -21,6 +24,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('lang/{lang}', function ($lang){
+    app()->setLocale($lang);
+    session()->put('locale', $lang);
+
+    return redirect()->route('dashboard');
+})->name('lang');
+
 Route::group(['prefix'=>'ideas/', 'as'=>'ideas.', 'middleware' => ['auth']],function(){
 
   
@@ -62,10 +72,19 @@ Route::post('idea/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middle
 
 Route::get('feed', FeedController::class)->middleware('auth')->name('feed');
 
-Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'can:admin']);
+
 
 Route::get('/terms', function(){
     return view ('terms');
+});
+
+
+Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(function(){
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('users', AdminUserController::class)->only('index');
+    Route::post('makeAdminUser/{user}', [AdminUserController::class, 'makeAdminUser'])->name('makeAdmin');
+    Route::resource('ideas', AdminIdeaController::class)->only('index');
+    Route::resource('comments', AdminCommentController::class)->only('index', 'destroy');
 });
 // Route::get('/login', function () {
 //     return view('dashboard');
